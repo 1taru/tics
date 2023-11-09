@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio - Seguridad</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos específicos para esta página */
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+          <a href="javascript:void(0);" onclick="scrollToSection('#Home')"><img src="TilinGrey.png" alt="Logo de Seguridad"></a>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li><a href="login.html">Iniciar Sesion</a></li>
+                <li><a href="javascript:void(0);" onclick="scrollToSection('#Servicios')">Servicios</a></li>
+                <li><a href="javascript:void(0);" onclick="scrollToSection('#Nosotros')">Acerca de Nosotros</a></li>
+            </ul>
+        </nav>
+    </header>
+    <a id="Home"></a>
+    <section class="hero">
+        <h2>Bienvenido a TilinSafe</h2>
+        <p>Dedicados a proteger lo que más te importa</p>
+        <a href="#" class="cta-button">Más información</a>
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <img src="15748.png" alt="Logo de Seguridad">
+            <h3>Seguridad Residencial</h3>
+            <p>Ofrecemos soluciones de seguridad para tu hogar.</p>
+        </div>
+        <div class="feature">
+            <img style="width: 100px;" src="pngwing.com.png" alt="Logo de Seguridad">
+            <h3>Monitoreo en todo momento</h3>
+            <p>Protege tu negocio con nuestros sistemas de seguridad avanzados.</p>
+        </div>
+        <div class="feature">
+            <img style="width: 100px;" src="1220327.png" alt="Logo de Seguridad">
+            <h3>Soporte 24/7</h3>
+            <p>Estamos disponibles para ayudarte en cualquier momento.</p>
+        </div>
+    </section>
+
+    <!--Servicios-->
+
+    <a id="Servicios"></a>
+    <h3 class="h33">Servicios disponibles</h3>
+
+    <section class="container-Services">
+
+        <section class="container">
+            <div class="card">
+              <div class="content">
+              <p class="logo">Tilin Protector</p>
+                <div class="h6">Data &amp; Una cerradura inteligente, más un servicio excelente</div>
+                <div class="hover_content">
+                  <p>A partir de nuestra Cerradura inteligente la cual implementa varios sensores y alarmas disuasivas, sumado nuestro servicio 24/7 podra acceder a la informacion sobre la seguridad de su hogar desde cualquier parte, sin temor a que alguien ingrese a su casa</p> 
+                  <a href="registro.html">Contratar</a>
+                </div>
+              </div>
+            </div>       
+          </section>
+
+          <section class="container">
+            <div class="card">
+              <div class="content">
+              <p class="logo">Tilin Advanced </p>
+                <div class="h6">Data &amp; </div>
+                <div class="hover_content">
+                  <p>mParticle’s customer data platform empowers you to Integrate all of your data and orchestrate it across channels, partners, and systems.</p>
+                  <a href="registro.html">Contratar</a>
+                </div>
+              </div>
+            </div>       
+          </section>
+
+          <section class="container">
+            <div class="card">
+              <div class="content">
+              <p class="logo">Digital Way</p>
+                <div class="h6">Data &amp; Infrastructure Agility</div>
+                <div class="hover_content">
+                  <p>mParticle’s customer data platform empowers you to Integrate all of your data and orchestrate it across channels, partners, and systems.</p>
+                  <a href="registro.html">Contratar</a>
+                </div>
+              </div>
+            </div>       
+          </section>
+
+    </section>
+
+    <!--Nosotros / Nuestra Vision y Motivacion como Empresa de Seguridad-->
+    <a id="Nosotros"></a>
+    <section>
+        <h3 class="h33">Nosotros</h3>
+        <p class="nosotros-p">TilinSafe encuentra su razón de ser en una época marcada por una creciente inquietud 
+          acerca de la seguridad en los hogares. Con la necesidad apremiante de sistemas de seguridad
+           más eficientes y accesibles, esta empresa se embarca en la misión de proporcionar soluciones
+            que protejan de manera efectiva a las residencias.
+            Los datos delictuales registrados durante los años 2021 y 2022, que reflejan un alarmante
+            número de robos en lugares habitados y no habitados, sirven como una clara señal de que 
+            se requiere un enfoque más avanzado en la seguridad. TilinSafe se inspira en estas estadísticas
+            para desarrollar tecnologías innovadoras que aborden estas preocupaciones y brinden una mayor
+            tranquilidad a sus clientes.</p>
+    </section>
+
+    <footer>
+        <section class="footer-features">
+            <div class="footer-feature">
+                <h3>Contacto</h3>
+                <p>Correo: TilinSafe@TSafe.cl</p>
+                <p>Telefono: X-XXXX-XXXX</p>
+                <p>WhatssApp: +56 9 xxxx xxxx</p>
+            </div>
+            <div class="footer-feature">
+                <h3>Ubicacion</h3>
+                <p>Oficina Central: Av. Tilin #0101; Santiago</p>
+                <p>Sala de Ventas: Calle Catalan #2148; Pekin</p>
+            </div>
+        </section>
+        <p>&copy; 2023 Página de Seguridad - Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+      // Función para desplazamiento suave
+      function scrollToSection(id) {
+          const element = document.querySelector(id);
+          if (element) {
+              // Obtener la posición del elemento
+              const offsetTop = element.offsetTop;
+  
+              // Duración del desplazamiento en milisegundos (puedes ajustar este valor)
+              const duration = 800;
+  
+              // Iniciar el desplazamiento suave utilizando animaciones CSS
+              document.documentElement.style.scrollBehavior = 'smooth';
+              window.scrollTo({
+                  top: offsetTop,
+                  behavior: 'smooth'
+              });
+  
+              // Restablecer el comportamiento de desplazamiento predeterminado después de la animación
+              setTimeout(() => {
+                  document.documentElement.style.scrollBehavior = 'auto';
+              }, duration);
+          }
+      }
+  </script>
+  
+    
+
+</body>
+</html>

@@ -1,0 +1,359 @@
+/* Reset de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    line-height: 1.6;
+}
+
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Encabezado */
+
+header {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff; /* Cambia esto al color de fondo deseado */
+    z-index: 100; /* Asegura que el encabezado esté en la parte superior */
+    
+    background-color: #333; /* Color de fondo del encabezado */
+    color: #fff; /* Color del texto en el encabezado */
+    display: flex;
+    justify-content: space-between; /* Coloca los elementos en los extremos */
+    align-items: center; /* Centra verticalmente los elementos */
+    padding: 10px 20px; /* Espaciado interno del encabezado */
+}
+
+/* Estilos para el logotipo */
+.logo img {
+    width: 180px; /* Ancho del logotipo */
+    height: auto; /* Altura automática para mantener la proporción */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.logo img:hover {
+    color: #8B00B4;
+    background-color: #444;
+}
+
+/* Estilos para el menú de navegación */
+nav {
+    background-color: #333;
+    color: #fff;
+}
+
+nav ul {
+    list-style-type: none; /* Quita las viñetas de la lista */
+    padding: 0; /* Quita el espaciado interno de la lista */
+}
+
+nav ul li {
+    display: inline; /* Muestra los elementos de la lista en línea */
+    margin-right: 20px; /* Espaciado entre elementos del menú */
+}
+
+nav ul li a {
+    border-radius:5px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s ease, background-color 0.3s ease; /* Agregado efecto de transición */
+    padding: 10px 20px; /* Agregado padding para hacer que el área de interacción sea más grande */
+}
+
+/* Cambiar color de enlace al pasar el cursor */
+nav ul li a:hover {
+    color: #8B00B4;
+    background-color: #444;
+}
+
+/* Sección de héroe */
+.hero {
+    text-align: center;
+    padding: 200px 0 100px;
+}
+
+.hero h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #8B00B4;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #e58300;
+}
+
+/* Sección de características */
+.features {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 0;
+}
+
+.feature {
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.feature img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.feature h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.feature p {
+    font-size: 16px;
+    color: #666;
+}
+
+/*Estilos Card Servicios*/
+.h33 {
+    margin: 20px auto;
+    padding: 150px 20px 20px;
+    text-align: center;
+    font-size: 2em;
+}
+
+.container-Services{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+}
+.container {
+    margin: 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .card {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    width: 22em;
+    max-width: 80%;
+    padding: 2em 0;
+    background: #FFF;
+    box-shadow: 0 0 6px 0 rgba(32, 32, 36, 0.12);
+    transition: all 0.35s ease;
+  }
+  
+  .card::before, .card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: orange;
+    height: 4px;
+  }
+  
+  .card::before {
+    width: 0;
+    opacity: 0;
+    transition: opacity 0 ease, width 0 ease;
+    transition-delay: 0.5s;
+  }
+  
+  .card::after {
+    width: 100%;
+    background: white;
+    transition: width 0.5s ease;
+  }
+  
+  .card .content {
+    width: 18em;
+    max-width: 80%;
+  }
+  
+  .card .logo {
+    margin: 0 0 1em;
+    width: 10.625em;
+    transition: all 0.35s ease;
+  }
+  
+  .card .h6 {
+    color: #999;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 2px;
+  }
+  
+  .card .hover_content {
+    overflow: hidden;
+    max-height: 0;
+    transform: translateY(1em);
+    transition: all 0.55s ease;
+  }
+  
+  .card .hover_content p {
+    margin: 1.5em 0 0;
+    color: #6E6E70;
+    line-height: 1.4em;
+  }
+
+  .card .hover_content a {
+    margin: 10px 0;
+    display: inline-block;
+    background-color: #8B00B4;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .card .hover_content a:hover{
+    background-color: #e58300;
+  }
+  
+  .card:hover {
+    width: 24em;
+    box-shadow: 0 10px 20px 0 rgba(32, 32, 36, 0.12);
+  }
+  
+  .card:hover::before {
+    width: 100%;
+    opacity: 1;
+    transition: opacity 0.5s ease, width 0.5s ease;
+    transition-delay: 0;
+  }
+  
+  .card:hover::after {
+    width: 0;
+    opacity: 0;
+    transition: width 0 ease;
+  }
+  
+  .card:hover .logo {
+    margin-bottom: 0.5em;
+  }
+  
+  .card:hover .hover_content {
+    max-height: 15em; /* Altura maxima de la card */
+    transform: none;
+  }
+
+/*Nosotros*/
+.nosotros-box {
+    justify-content: center;
+}
+.nosotros-p{
+    margin: auto;
+    width: 70%;
+    background-color: #666;
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+.footer-features{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1em;
+}
+.footer-feature {
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+}
+.footer-feature h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.footer-feature p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Estilos para dispositivos móviles */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .menu {
+        text-align: center;
+    }
+
+    .menu li {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .hero {
+        padding: 80px 0;
+    }
+
+    .hero h2 {
+        font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .features {
+        flex-direction: column;
+    }
+
+    .feature {
+        margin-bottom: 30px;
+    }
+}
