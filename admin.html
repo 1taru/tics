@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicación WebSocket</title>
+</head>
+<body>
+
+    <h1>Mi Página Web</h1>
+
+    <div id="datos-container">
+        <!-- Aquí mostrarás los datos recibidos del ESP32 -->
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('actualizacionDatos', function(event) {
+            const datosContainer = document.getElementById('datos-container');
+
+            // Limpiar el contenedor
+            datosContainer.innerHTML = '';
+
+            // Agregar cada dato al contenedor
+            event.detail.forEach(dato => {
+                const p = document.createElement('p');
+                p.textContent = dato;
+                datosContainer.appendChild(p);
+            });
+        });
+    </script>
+</body>
+</html>
