@@ -275,7 +275,7 @@ nav ul li a:hover {
   }
   
   .card:hover .hover_content {
-    max-height: 15em; /* Altura maxima de la card */
+    max-height: 25em; /* Altura maxima de la card */
     transform: none;
   }
 
