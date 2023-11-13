@@ -151,7 +151,19 @@ app.post('/login', (req, res) => {
       res.render('inicio', { error: 'Error interno del servidor' });
     });
 });
+app.post('/solicitud', (req, res) => {
+  const { nombre, sensor1, sensor2, sensor3, sensor4, sensor5 } = req.body;
 
+  solicitudesArray.push({ nombre, sensor1, sensor2, sensor3, sensor4, sensor5 });
+
+  // Construir un objeto JSON dinámico
+  const jsonResponse = {
+    message: 'Solicitud registrada con éxito',
+    solicitud: { nombre, sensor1, sensor2, sensor3, sensor4, sensor5 }
+  };
+
+  res.json(jsonResponse);
+});
 
 // Ruta para registrar un nuevo usuario
 app.post('/registrar', async (req, res) => {
