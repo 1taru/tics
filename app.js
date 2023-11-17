@@ -1,5 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 const fs = require('fs');
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 const datosRecibidos = [];
 
 mongoose.connect("mongodb+srv://taru:taru@cluster0.rdmwzvj.mongodb.net/?retryWrites=true&w=majority", {
@@ -27,6 +29,16 @@ mongoose.connect("mongodb+srv://taru:taru@cluster0.rdmwzvj.mongodb.net/?retryWri
 app.listen(port, () => {
   console.log('Servidor escuchando en el puerto 3000');
 });
+// Definir el esquema de la colección
+const solicitudSchema = new mongoose.Schema({
+  nombre: String,
+  sensor1: Number,
+  sensor2: Number,
+});
+
+// Crear el modelo
+const Solicitud = mongoose.model('Solicitud', solicitudSchema);
+
 function getCookie(name) {
   const cookies = document.cookie.split(';');
   for (let i = 0; i < cookies.length; i++) {
@@ -151,18 +163,33 @@ app.post('/login', (req, res) => {
       res.render('inicio', { error: 'Error interno del servidor' });
     });
 });
-app.post('/solicitud', (req, res) => {
-  const { nombre, sensor1, sensor2, sensor3, sensor4, sensor5 } = req.body;
 
-  solicitudesArray.push({ nombre, sensor1, sensor2, sensor3, sensor4, sensor5 });
+app.post('/verificar-rfid', async (req, res) => {
+  try {
+    const { rfid } = req.body;
 
-  // Construir un objeto JSON dinámico
-  const jsonResponse = {
-    message: 'Solicitud registrada con éxito',
-    solicitud: { nombre, sensor1, sensor2, sensor3, sensor4, sensor5 }
-  };
+    // Buscar el RFID en la base de datos
+    const solicitudEncontrada = await Solicitud.findOne({ rfid });
 
-  res.json(jsonResponse);
+    if (solicitudEncontrada) {
+      // Si se encuentra, responder con un mensaje de éxito y los detalles
+      res.json({
+        status: 'Éxito',
+        mensaje: 'RFID encontrado en la base de datos',
+        solicitud: solicitudEncontrada,
+      });
+    } else {
+      // Si no se encuentra, responder con un mensaje de error
+      res.json({
+        status: 'Error',
+        mensaje: 'RFID no encontrado en la base de datos',
+      });
+    }
+  } catch (error) {
+    // Manejar errores
+    console.error('Error al verificar el RFID:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
 });
 
 // Ruta para registrar un nuevo usuario
