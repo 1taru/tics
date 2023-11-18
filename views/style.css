@@ -115,7 +115,7 @@ b{
 
 .container{
     display: grid;
-    width: 90%;
+    width: 96%;
     margin: 0 auto;
     gap: 1.8rem;
     grid-template-columns: 12rem auto 23rem;
@@ -234,7 +234,7 @@ main .analyse > div{
     background-color: var(--color-white);
     padding: var(--card-padding);
     border-radius: var(--card-border-radius);
-    margin-top: 80%;
+    margin-top: 1rem;
     box-shadow: var(--box-shadow);
     cursor: pointer;
     transition: all 0.3s ease;
@@ -276,8 +276,8 @@ main .analyse svg circle{
 
 main .analyse .sales svg circle{
     stroke: var(--color-success);
-    stroke-dashoffset: -30;
-    stroke-dasharray: 200;
+    stroke-dashoffset: -30; /* angulo donde comienza el circulo */
+    stroke-dasharray: 200; /* Cantidad de circulo pintado, segun porcentaje */
 }
 
 main .analyse .visits svg circle{
@@ -379,7 +379,7 @@ main .recent-orders a{
 }
 
 .right-section{
-    margin-top: 20%;
+    margin-top: 1.4rem;
 }
 
 .right-section .nav{

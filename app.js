@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt'); // Importa bcrypt
 const app = express();
 const mongoose = require('mongoose');
+
 // const socket = new WebSocket('ws://tu-esp32-ip:81');
 const port = 3000;
 var cors = require('cors');
@@ -31,6 +32,7 @@ app.listen(port, () => {
 });
 // Definir el esquema de la colección
 const solicitudSchema = new mongoose.Schema({
+  rfid: String,
   nombre: String,
   sensor1: Number,
   sensor2: Number,
@@ -38,6 +40,16 @@ const solicitudSchema = new mongoose.Schema({
 
 // Crear el modelo
 const Solicitud = mongoose.model('Solicitud', solicitudSchema);
+
+const historialSchema = new mongoose.Schema({
+  rfid: String,
+  hora: { type: Date, default: Date.now },
+  exito: Boolean,
+});
+
+
+// Crear el modelo de historial
+const Historial = mongoose.model('Historial', historialSchema);
 
 function getCookie(name) {
   const cookies = document.cookie.split(';');
@@ -164,30 +176,40 @@ app.post('/login', (req, res) => {
     });
 });
 
-app.post('/verificar-rfid', async (req, res) => {
+app.post('/solicitud', async (req, res) => {
   try {
-    const { rfid } = req.body;
+    const { rfid, nombre, sensor1, sensor2 } = req.body;
 
-    // Buscar el RFID en la base de datos
-    const solicitudEncontrada = await Solicitud.findOne({ rfid });
+    // Verificar si el RFID ya existe en la base de datos
+    const solicitudExistente = await Solicitud.findOne({ rfid });
 
-    if (solicitudEncontrada) {
-      // Si se encuentra, responder con un mensaje de éxito y los detalles
+    // Agregar una entrada en el historial, indicando si la búsqueda fue exitosa o no
+    const nuevaEntradaHistorial = new Historial({ rfid, exito: !!solicitudExistente });
+    await nuevaEntradaHistorial.save();
+
+    if (solicitudExistente) {
+      // Si existe, responder con un mensaje de éxito y los detalles de la solicitud
       res.json({
         status: 'Éxito',
-        mensaje: 'RFID encontrado en la base de datos',
-        solicitud: solicitudEncontrada,
+        mensaje: 'Solicitud registrada con éxito',
+        solicitud: solicitudExistente,
       });
+
     } else {
-      // Si no se encuentra, responder con un mensaje de error
+      // Si no existe, registrar una nueva solicitud
+      const nuevaSolicitud = new Solicitud({ rfid, nombre, sensor1, sensor2 });
+      await nuevaSolicitud.save();
+
+      // Responder con un mensaje de éxito y los detalles de la solicitud registrada
       res.json({
-        status: 'Error',
-        mensaje: 'RFID no encontrado en la base de datos',
+        status: 'Éxito',
+        mensaje: 'Solicitud registrada con éxito',
+        solicitud: nuevaSolicitud,
       });
     }
   } catch (error) {
     // Manejar errores
-    console.error('Error al verificar el RFID:', error);
+    console.error('Error al procesar la solicitud:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 });
