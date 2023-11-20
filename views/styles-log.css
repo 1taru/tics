@@ -60,96 +60,150 @@ nav ul li a:hover {
   background-color: #444;
 }
 
-/* Estilos log-in y sing-up */
-
+/* Estilos sing-up & log-in*/
 .container{
-    display: flex;
-    justify-content: center;
-    margin: 30px auto;
+  display: flex;
+  justify-content: center;
+  margin: 15px auto;
 }
 
 .form {
-    background-color: white;
-    padding: 3.125em;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 5px 5px 15px -1px rgba(0,0,0,0.75);
-  }
-  
-  .signup {
-    color: rgb(77, 75, 75);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    display: block;
-    font-weight: bold;
-    font-size: x-large;
-    margin-bottom: 0.5em;
-  }
-  
-  .form--input {
-    width: 100%;
-    margin-bottom: 1.25em;
-    height: 40px;
-    border-radius: 5px;
-    border: 1px solid gray;
-    padding: 0.8em;
-    font-family: 'Inter', sans-serif;
-    outline: none;
-  }
-  
-  .form--input:focus {
-    border: 1px solid #639;
-    outline: none;
-  }
-  
-  .form--marketing {
-    display: flex;
-    margin-bottom: 1.25em;
-    align-items: center;
-  }
-  
-  .form--marketing > input {
-    margin-right: 0.625em;
-  }
-  
-  .form--marketing > label {
-    color: grey;
-  }
-  
-  .checkbox, input[type="checkbox"] {
-    accent-color: #639;
-  }
-  
-  .form--submit {
-    width: 50%;
-    padding: 0.625em;
-    border-radius: 5px;
-    color: white;
-    background-color: #639;
-    border: 1px dashed #639;
-    cursor: pointer;
-  }
-  
-  .form--submit:hover {
-    color: #639;
-    background-color: white;
-    border: 1px dashed #639;
-    cursor: pointer;
-    transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 350px;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  color: #8b00b4;
+}
+
+.title::before {
+  width: 18px;
+  height: 18px;
+}
+
+.title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.title::before,
+.title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: #8b00b4;
+}
+
+.message, 
+.signin {
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.signin {
+  text-align: center;
+}
+
+.signin a:hover {
+  text-decoration: underline royalblue;
+}
+
+.signin a {
+  color: #8b00b4;
+}
+
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+
+.form label {
+  position: relative;
+}
+
+.form label .input {
+  background-color: #333;
+  color: #fff;
+  width: 100%;
+  padding: 20px 05px 05px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.form label .input + span {
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 10px;
+  top: 0px;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown + span {
+  top: 12.5px;
+  font-size: 0.9em;
+}
+
+.form label .input:focus + span,
+.form label .input:valid + span {
+  color: #8b00b4;
+  top: 0px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.input {
+  font-size: medium;
+}
+
+.submit {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: .3s ease;
+  background-color: #8b00b4;
+}
+
+.submit:hover {
+  background-color: #630281;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
   }
 
-  a{
-    text-decoration: none;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    border-radius:5px;
-    padding: 5px;
+  to {
+    transform: scale(1.8);
+    opacity: 0;
   }
-  a:hover{
-    color: #8B00B4;
-    background-color: #444;
-  }
+}
 
 /* Pie de Pagina */
 
