@@ -19,8 +19,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-const datosRecibidos = [];
-
+const solicitudesArray = [];
+const historialArray = [];
+const vivienda= 123;
 mongoose.connect("mongodb+srv://taru:taru@cluster0.rdmwzvj.mongodb.net/?retryWrites=true&w=majority", {
    useNewUrlParser: true,
    useUnifiedTopology: true
@@ -30,12 +31,20 @@ mongoose.connect("mongodb+srv://taru:taru@cluster0.rdmwzvj.mongodb.net/?retryWri
 app.listen(port, () => {
   console.log('Servidor escuchando en el puerto 3000');
 });
+//personas
+const personaSchema = new mongoose.Schema({
+  rfid: String,
+  nombre: String,
+  Id_vivienda: String,
+});
+const Persona = mongoose.model('Persona', personaSchema);
 // Definir el esquema de la colección
 const solicitudSchema = new mongoose.Schema({
   rfid: String,
   nombre: String,
   sensor1: Number,
   sensor2: Number,
+  status: Boolean,
 });
 
 // Crear el modelo
@@ -142,6 +151,66 @@ app.get('/index', (req, res) => {
   res.clearCookie('token');
   res.render('index.html');
 });
+
+app.get('/lol', (req, res) => {
+  console.log('Solicitudes Array:', solicitudesArray);
+  const tableRows = solicitudesArray.map((solicitud, index) => {
+    return `
+      <tr>
+      <p> HOLA </p>
+        <td>${index + 1}</td>
+        <td>${solicitud.rfid}</td>
+        <td>${solicitud.hora}</td>
+        <td>${solicitud.exito}</td>
+        <td>${solicitud.status}</td>
+      </tr>
+    `;
+  }).join('');
+
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Página de Solicitudes</title>
+      <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    </head>
+    <body>
+      <h1>Solicitudes</h1>
+      <div class="flex-container">
+        <table class="table-container">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>ID sensor</th>
+              <th>Hora Solicitud</th>
+              <th>Exito RFID/th>
+            </tr>
+          </thead>
+          <tbody>
+            ${tableRows}
+          </tbody>
+        </table>
+
+        <button type="button" onclick="borrarSolicitudes()">Borrar Solicitudes</button>
+      </div>
+      <script>
+        function borrarSolicitudes() {
+          fetch('/borrar-solicitudes', { method: 'POST' })
+            .then(() => window.location.reload());
+        }
+      </script>
+    </body>
+    </html>
+  `;
+
+  res.send(html);
+});
+
+app.post('/borrar-solicitudes', (req, res) => {
+  solicitudesArray.length = 0;
+
+  res.redirect('/');
+});
 // Ruta POST para el inicio de sesión
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
@@ -175,44 +244,68 @@ app.post('/login', (req, res) => {
       res.render('inicio', { error: 'Error interno del servidor' });
     });
 });
-
-app.post('/solicitud', async (req, res) => {
-  try {
-    const { rfid, nombre, sensor1, sensor2 } = req.body;
-
-    // Verificar si el RFID ya existe en la base de datos
-    const solicitudExistente = await Solicitud.findOne({ rfid });
-
-    // Agregar una entrada en el historial, indicando si la búsqueda fue exitosa o no
-    const nuevaEntradaHistorial = new Historial({ rfid, exito: !!solicitudExistente });
-    await nuevaEntradaHistorial.save();
-
-    if (solicitudExistente) {
-      // Si existe, responder con un mensaje de éxito y los detalles de la solicitud
-      res.json({
-        status: 'Éxito',
-        mensaje: 'Solicitud registrada con éxito',
-        solicitud: solicitudExistente,
-      });
-
-    } else {
+//-- CON ESTO SE AGREGA UN RFID A LA BASE DE DATOS
       // Si no existe, registrar una nueva solicitud
-      const nuevaSolicitud = new Solicitud({ rfid, nombre, sensor1, sensor2 });
-      await nuevaSolicitud.save();
-
-      // Responder con un mensaje de éxito y los detalles de la solicitud registrada
-      res.json({
-        status: 'Éxito',
-        mensaje: 'Solicitud registrada con éxito',
-        solicitud: nuevaSolicitud,
+      //const nuevaSolicitud = new Solicitud({ rfid, nombre, sensor1, sensor2,status: 'false'});
+      app.post('/solicitud', async (req, res) => {
+        try {
+          const { rfid, nombre, sensor1, sensor2 } = req.body;
+      
+          // Verificar si los datos entrantes cumplen con el esquema de Solicitud
+          const solicitudValidation = new Solicitud({ rfid, nombre, sensor1, sensor2 });
+          const solicitudValidationErrors = solicitudValidation.validateSync();
+      
+          if (solicitudValidationErrors) {
+            // Si hay errores en la validación, responder con un mensaje de error
+            res.status(400).json({ error: 'Datos de solicitud inválidos' });
+            return;
+          }
+      
+          // Verificar si el RFID ya existe en la base de datos
+          const solicitudExistente = await Solicitud.findOne({ rfid });
+      
+          // Crear un objeto para la nueva solicitud
+          const nuevaSolicitud = new Solicitud({ rfid, nombre, sensor1, sensor2 });
+      
+          // Agregar una entrada en el historial
+          const nuevaEntradaHistorial = new Historial({ rfid, exito: false });
+      
+          if (solicitudExistente) {
+            // Si existe, responder con un mensaje de éxito y los detalles de la solicitud existente
+            res.json({
+              status: 'Éxito',
+              mensaje: 'Solicitud existente',
+              solicitud: solicitudExistente,
+            });
+          } else {
+            // Si no existe, registrar la nueva solicitud
+            await nuevaSolicitud.save();
+      
+            // Actualizar solicitudesArray con la nueva solicitud
+            solicitudesArray.push(nuevaSolicitud);
+      
+            // Marcar la entrada del historial como exitosa
+            nuevaEntradaHistorial.exito = true;
+      
+            // Responder con un mensaje de éxito y los detalles de la solicitud registrada
+            res.json({
+              status: 'Éxito',
+              mensaje: 'Solicitud registrada con éxito',
+              solicitud: nuevaSolicitud,
+            });
+          }
+      
+          // Guardar la entrada en el historial
+          await nuevaEntradaHistorial.save();
+          // Actualizar el array de historial
+          solicitudesArray.push(nuevaEntradaHistorial);
+        } catch (error) {
+          // Manejar errores
+          console.error('Error al procesar la solicitud:', error);
+          res.status(500).json({ error: 'Error interno del servidor' });
+        }
       });
-    }
-  } catch (error) {
-    // Manejar errores
-    console.error('Error al procesar la solicitud:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
-  }
-});
+      
 
 // Ruta para registrar un nuevo usuario
 app.post('/registrar', async (req, res) => {
@@ -246,4 +339,7 @@ app.post('/registrar', async (req, res) => {
     res.status(500).json({ error: 'Error al registrar el usuario' });
   }
 });
-
+app.get('/Dviviendas', (req, res) => {
+  // Renderiza la página de inicio (debe estar en la carpeta 'views')
+  res.render('Dviviendas');
+});
