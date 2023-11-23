@@ -1,34 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="styles.css">
-    <title>Responsive Dashboard Design #1 | AsmrProg</title>
+    <title>Detalles</title>
 </head>
 
 <body>
-    <header >
-        <div class="logo" >
-          <a href="javascript:void(0);" onclick="scrollToSection('#Home')"><img src="TilinGrey.png" alt="Logo de Seguridad"></a>
-        </div>
-        <nav>
-            <ul class="menu" >
-                <li><a href="login.html">Iniciar Sesion</a></li>
-                <li><a href="javascript:void(0);" onclick="scrollToSection('#Servicios')">Servicios</a></li>
-                <li><a href="javascript:void(0);" onclick="scrollToSection('#Nosotros')">Acerca de Nosotros</a></li>
-            </ul>
-        </nav>
-    </header>
+
     <div class="container">
         <!-- Sidebar Section -->
         <aside>
             <div class="toggle">
                 <div class="logo">
-                    <img src="Copia_de_Tilin.png">
+                    
                     <h2>Tilin<span class="danger">Safe</span></h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -37,8 +26,45 @@
                     </span>
                 </div>
             </div>
-            
-            
+
+            <div class="sidebar">
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        dashboard
+                    </span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        person_outline
+                    </span>
+                    <h3>Users</h3>
+                </a>
+                <a href="#" class="active">
+                    <span class="material-icons-sharp">
+                        insights
+                    </span>
+                    <h3>Analytics</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        report_gmailerrorred
+                    </span>
+                    <h3>Reports</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        settings
+                    </span>
+                    <h3>Settings</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
         </aside>
         <!-- End of Sidebar Section -->
 
@@ -50,8 +76,8 @@
                 <div class="sales">
                     <div class="status">
                         <div class="info">
-                            <h3>Total Sales</h3>
-                            <h1>$65,024</h1>
+                            <h3>Total Ingresos</h3>
+                            <h1>XX.XXX</h1>
                         </div>
                         <div class="progresss">
                             <svg>
@@ -66,7 +92,7 @@
                 <div class="visits">
                     <div class="status">
                         <div class="info">
-                            <h3>Site Visit</h3>
+                            <h3>-----.-----</h3>
                             <h1>24,981</h1>
                         </div>
                         <div class="progresss">
@@ -82,7 +108,7 @@
                 <div class="searches">
                     <div class="status">
                         <div class="info">
-                            <h3>Searches</h3>
+                            <h3>-----.-----</h3>
                             <h1>14,147</h1>
                         </div>
                         <div class="progresss">
@@ -100,27 +126,27 @@
 
             <!-- New Users Section -->
             <div class="new-users">
-                <h2>New Users</h2>
+                <h2>Usuarios</h2>
                 <div class="user-list">
                     <div class="user">
                         <img src="images/profile-2.jpg">
-                        <h2>-----</h2>
-                        <p>TIME</p>
+                        <h2>Nombre-1</h2>
+                        <p>Ultima EoS</p> <!--EoS entrada o salida-->
                     </div>
                     <div class="user">
                         <img src="images/profile-3.jpg">
-                        <h2>-------</h2>
-                        <p>TIME</p>
+                        <h2>Nombre-2</h2>
+                        <p>Ultima EoS</p> <!--EoS entrada o salida-->
                     </div>
                     <div class="user">
                         <img src="images/profile-4.jpg">
-                        <h2>-------</h2>
-                        <p>TIME</p>
+                        <h2>Nombre-3</h2>
+                        <p>Ultima EoS</p> <!--EoS entrada o salida-->
                     </div>
                     <div class="user">
                         <img src="images/plus.png">
-                        <h2>---------</h2>
-                        <p>TIME</p>
+                        <h2>More</h2>
+                        <p>New User</p>
                     </div>
                 </div>
             </div>
@@ -128,19 +154,20 @@
 
             <!-- Recent Orders Table -->
             <div class="recent-orders">
-                <h2>Ultimas entradas a la propiedad</h2>
+                <h2>Reportes De Ingresos</h2>
                 <table>
                     <thead>
                         <tr>
-                            <th>-----</th>
-                            <th>-----</th>
-                            <th>-----</th>
-                            <th>-----</th>
+                            <th>User Name</th>
+                            <th>Id RFID</th>
+                            <th>Hora de ingreso</th>
+                            <th>Estado</th> <!-- permitido / no permitido -->
                             <th></th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
+                <a href="#">Show All</a>
             </div>
             <!-- End of Recent Orders -->
 
@@ -166,8 +193,8 @@
 
                 <div class="profile">
                     <div class="info">
-                        <p>Bienvenido, <b>-------</b></p>
-                        <small class="text-muted">Admin</small>
+                        <p>Bienvenida, <b>NombreU</b></p>
+                        <small class="text-muted">Rango</small>
                     </div>
                     <div class="profile-photo">
                         <img src="images/profile-1.jpg">
@@ -179,12 +206,63 @@
 
             <div class="user-profile">
                 <div class="logo">
-                    <img src="Copia_de_Tilin.png">
-                    <h2>----------</h2>
+                    <img src="images/logo.png">
+                    <h2>Nombre-Vivienda</h2>
+                    <p>Direccion</p>  <!--Titular servicio o usuario-->
                 </div>
             </div>
 
-            
+            <div class="reminders">
+                <div class="header">
+                    <h2>Notificaciones</h2>
+                    <span class="material-icons-sharp">
+                        notifications_none
+                    </span>
+                </div>
+                <div class="container mt-5">
+                    <!-- Alerta de Inicio Exitoso -->
+                    <div id="alerta-exito" class="alert alert-success" style="display: none;">
+                      <strong>Éxito:</strong> Solicitud registrada con éxito.
+                    </div>
+                
+                    <!-- Alerta de Acceso Denegado -->
+                    <div id="alerta-error" class="alert alert-danger" style="display: none;">
+                      <strong>Error:</strong> Acceso denegado. Por favor, inténtalo nuevamente.
+                    </div>
+                
+                    <!-- Tu contenido HTML existente -->
+                
+                    <!-- Incluir los scripts de Bootstrap y tu lógica adicional -->
+                    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+                
+                    <script>
+                      // Agrega este script para mostrar las alertas según la respuesta del servidor
+                      function mostrarAlertaExito() {
+                        $('#alerta-exito').fadeIn().delay(3000).fadeOut();
+                      }
+                
+                      function mostrarAlertaError() {
+                        $('#alerta-error').fadeIn().delay(3000).fadeOut();
+                      }
+                
+                      // Ejemplo de cómo usar las funciones después de realizar la solicitud
+                      // Supongamos que recibes la respuesta del servidor en la variable 'respuesta'
+                      const respuesta = /* La respuesta del servidor */;
+                      
+                      if (respuesta.status === 'Éxito') {
+                        mostrarAlertaExito();
+                      } else {
+                        mostrarAlertaError();
+                      }
+                    </script>
+                  </div>
+                
+
+                
+
+                
 
             </div>
 
