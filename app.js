@@ -12,7 +12,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 // const socket = new WebSocket('ws://tu-esp32-ip:81');
-const port = 3001;
+const port = 3000;
 var cors = require('cors');
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
@@ -23,7 +23,6 @@ app.use(bodyParser.json());
 const solicitudesArray = [];
 const historialArray = [];
 const personasArray = [];
-const vivienda= 123;
 mongoose.connect("mongodb+srv://taru:taru@cluster0.rdmwzvj.mongodb.net/?retryWrites=true&w=majority", {
    useNewUrlParser: true,
    useUnifiedTopology: true
@@ -31,7 +30,7 @@ mongoose.connect("mongodb+srv://taru:taru@cluster0.rdmwzvj.mongodb.net/?retryWri
 
 // Iniciar el servidor
 app.listen(port, () => {
-  console.log('Servidor escuchando en el puerto 3000');
+  console.log('Servidor escuchando en el puerto ' + port);
 });
 //personas
 const personaSchema = new mongoose.Schema({
@@ -159,11 +158,11 @@ app.get('/index', (req, res) => {
   res.render('index.html');
 });
 app.get('/lol', (req, res) => {
-  const contador = {};
-  personasArray.forEach(valor => {
-    // Si el valor ya existe en el contador, incrementa la cuenta, de lo contrario, inicializa en 1
-    contador[valor] = (contador[valor] || 0) + 1;
-  });
+  
+  // Obtén el elemento en el que deseas mostrar los resultados
+  
+  // Recorre el objeto contador y crea elementos para mostrar el conteo
+  
   const tableRows = historialArray.map((entrada, index) => {
     return `
       <tr>
@@ -184,6 +183,9 @@ app.get('/lol', (req, res) => {
       </tr>
     `;
 }).join('');
+const alertasScript = solicitudesArray.map((solicitud, index) => {
+  return `alert('Solicitud #${index + 1} - RFID: ${solicitud.rfid}, Hora: ${solicitud.hora}, Éxito RFID: ${solicitud.exito}')`;
+}).join(';');
   const html = `
     <!DOCTYPE html>
     <html>
@@ -194,6 +196,17 @@ app.get('/lol', (req, res) => {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Detalles</title>
+    <script>
+        // Ejecuta las alertas al cargar la página
+        window.onload = function() {
+          ${alertasScript};
+        }
+
+        // Función para agregar una nueva alerta
+        function nuevaAlerta() {
+          alert('¡Nueva alerta!');
+        }
+      </script>
     </head>
     <body>
       
@@ -251,28 +264,6 @@ app.get('/lol', (req, res) => {
       </div>
       </aside>
       <main>
-            <h1>Analytics</h1>
-            <!-- Analyses -->
-            <div class="analyse" style="display: block;">
-                <div class="sales">
-                    <div class="status">
-                        <div class="info">
-                            <h3>Total Ingresos</h3>
-                            <h1>XX.XXX</h1>
-                        </div>
-                        <div class="progresss">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="percentage">
-                                <p>+81%</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End of Analyses -->
-
             <!-- New Users Section -->
             <style>
             .user-list table {
@@ -287,20 +278,12 @@ app.get('/lol', (req, res) => {
             }
             </style>
             <div class="new-users">
-                <h2>Usuarios</h2>
-                <div class="user-list">
+              <h2>Usuarios</h2>
+              <div class="user-list">
+              ${tableRows1}
+  </div>
+</div>
 
-                <thead>
-                <tr>
-                  <th>#</th>
-                  <th>nombre</th>
-                  <th>rfid</th>
-                  <th>Id vivienda</th>
-                </tr>
-                </thead>
-                    <tbody>${tableRows1}</tbody>
-                </div>
-            </div>
             <!-- End of New Users Section -->
 
             <!-- Recent Orders Table -->
@@ -371,13 +354,7 @@ app.get('/lol', (req, res) => {
           </div>
       </div>
       
-      <div class="reminders">
-      <div class="header">
-          <h2>Notificaciones</h2>
-          <span class="material-icons-sharp">
-              notifications_none
-          </span>
-      </div>
+      
       <div class="container mt-5">
           <!-- Alerta de Inicio Exitoso -->
           <div id="alerta-exito" class="alert alert-success" style="display: none;">
