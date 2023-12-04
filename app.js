@@ -12,7 +12,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 // const socket = new WebSocket('ws://tu-esp32-ip:81');
-const port = 3000;
+const port = 3001;
 var cors = require('cors');
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
